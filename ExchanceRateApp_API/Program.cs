@@ -14,10 +14,12 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", policybuilder =>
     policybuilder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
 
-builder.Services.AddTransient<ICurrencyGetterService, CurrencyGetterService>();
 builder.Services.AddTransient<IOuterWebApiDataReceiveService, OuterWebApiDataReceiveService>();
 builder.Services.AddSingleton<ICurrencySymbolsFileReadService, CurrencySymbolsFileReadService>();
-builder.Services.AddTransient<ICurrencyService, CurrencyService>();
+builder.Services.AddTransient<IHistoricalCurrencyService, HistoricalCurrencyService>();
+builder.Services.AddTransient<ILatestCurrencyService, LatestCurrencyService>();
+builder.Services.AddSingleton<IHttpClientManager, HttpClientManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

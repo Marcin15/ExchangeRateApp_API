@@ -1,23 +1,24 @@
 ﻿using ExchanceRateApp_API.Dtos;
+using ExchanceRateApp_API.Helpers;
 using ExchanceRateApp_API.Interfaces;
 using ExchanceRateApp_API.Models;
-using System.Diagnostics;
 
 namespace ExchanceRateApp_API.Services
 {
-    public class CurrencyService : ICurrencyService
+    public class HistoricalCurrencyService : IHistoricalCurrencyService
     {
-        private readonly ICurrencyGetterService _currencyGetterService;
+        private readonly IOuterWebApiDataReceiveService _outerWebApiDataReceiveService;
 
-        public CurrencyService(ICurrencyGetterService currencyGetterService)
+        public HistoricalCurrencyService(IOuterWebApiDataReceiveService outerWebApiDataReceiveService)
         {
-            _currencyGetterService = currencyGetterService;
+            _outerWebApiDataReceiveService = outerWebApiDataReceiveService;
         }
 
-        public List<CurrencyModel> GetCurrencyData()
+        public List<HistoricalCurrencyModel> GetHistoricalCurrencyData(string baseCurrency, string exchangeCurrency, DateTime startDate, DateTime endDate)
         {
-            var data = _currencyGetterService.GetRawCurrencyData();
-            List<CurrencyModel> currencyModels = new();
+            List<HistoricalCurrencyModel> currencyModels = new();
+
+            var data = Deserializer.Deserialize<HistoricalCurrencyDto>(_outerWebApiDataReceiveService.GetHistoricalCurrencyRates(baseCurrency, exchangeCurrency, startDate, endDate).Result);
             var symbols = GetSymbolsFromData(data);
 
             foreach (var symbol in symbols)
@@ -34,10 +35,10 @@ namespace ExchanceRateApp_API.Services
                     }
                 }
 
-                currencyModels.Add(new CurrencyModel
+                currencyModels.Add(new HistoricalCurrencyModel
                 {
                     Symbol = symbol,
-                    CurrencyValue = date_currencyValueDic
+                    Rates = date_currencyValueDic
                 });
             }
 
@@ -64,12 +65,3 @@ namespace ExchanceRateApp_API.Services
 
     }
 }
-
-//currencyModels.Add(new CurrencyModel
-//{
-//    Symbol = currency.Key,
-//    //CurrencyValue = new Dictionary<DateTime, float>
-//    //{
-//    //    { rate.Key, 12f }
-//    //}
-//});
