@@ -1,8 +1,9 @@
-﻿using ExchanceRateApp_API.Models;
-using ExchanceRateApp_API.Interfaces;
-using ExchanceRateApp_API.Helpers;
+﻿using ExchangeRateApp_API.Interfaces;
+using ExchangeRateApp_API.Helpers;
+using ExchangeRateApp_API.Dtos;
+using ExchangeRateApp_API.Queries;
 
-namespace ExchanceRateApp_API.Services
+namespace ExchangeRateApp_API.Services
 {
     public class LatestCurrencyService : ILatestCurrencyService
     {
@@ -13,7 +14,7 @@ namespace ExchanceRateApp_API.Services
             _outerWebApiDataReceiveService = outerWebApiDataReceiveService;
         }
 
-        public LatestCurrencyModel GetLatestCurrency(string baseCurrency, string exchangeCurrency) =>
-               Deserializer.Deserialize<LatestCurrencyModel>(_outerWebApiDataReceiveService.GetLatestCurrencyRates(baseCurrency, exchangeCurrency).Result);
+        public LatestCurrencyDtos GetLatestCurrency(LatestCurrencyQuery latestCurrencyRequestDto) =>
+               Deserializer.Deserialize<LatestCurrencyDtos>(_outerWebApiDataReceiveService.GetLatestCurrencyRates(latestCurrencyRequestDto).Result);
     }
 }

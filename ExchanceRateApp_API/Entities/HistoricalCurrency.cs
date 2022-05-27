@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace ExchanceRateApp_API.Dtos
+namespace ExchangeRateApp_API.Entities
 {
-    public class HistoricalCurrencyDto
+    public class HistoricalCurrency
     {
         [JsonProperty("base")]
         public string BaseCurrency { get; set; }

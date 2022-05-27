@@ -1,6 +1,6 @@
-﻿namespace ExchanceRateApp_API.Models
+﻿namespace ExchangeRateApp_API.Dtos
 {
-    public class LatestCurrencyModel
+    public class LatestCurrencyDtos
     {
         public string Base { get; set; }
         public DateTime Date { get; set; }

@@ -1,17 +1,21 @@
-﻿using ExchanceRateApp_API.Entities;
-using ExchanceRateApp_API.Interfaces;
+﻿using ExchangeRateApp_API.Entities;
+using ExchangeRateApp_API.Interfaces;
 using Newtonsoft.Json;
 
-namespace ExchanceRateApp_API.Services
+namespace ExchangeRateApp_API.Services
 {
     public class CurrencySymbolsFileReadService : ICurrencySymbolsFileReadService
     {
-        public CurrencySymbolsEntity ReadSymbols()
+        private readonly IConfiguration _configuration;
+        public CurrencySymbolsFileReadService(IConfiguration configuration)
         {
-            CurrencySymbolsEntity currencySymbolsEntity = new();
+            _configuration = configuration;
+        }
 
-            var readJson = File.ReadAllText("../Data/ExchanceRateApp/JSONresult.txt");
-            currencySymbolsEntity = JsonConvert.DeserializeObject<CurrencySymbolsEntity>(readJson);
+        public FileCurrencySymbol ReadSymbols()
+        {
+            var readJson = File.ReadAllText(_configuration["CurrencySymbolsFilePath"]);
+            var currencySymbolsEntity = JsonConvert.DeserializeObject<FileCurrencySymbol>(readJson);
 
             return currencySymbolsEntity;
         }

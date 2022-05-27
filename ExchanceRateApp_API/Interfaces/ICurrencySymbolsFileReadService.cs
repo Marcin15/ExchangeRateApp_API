@@ -1,9 +1,9 @@
-﻿using ExchanceRateApp_API.Entities;
+﻿using ExchangeRateApp_API.Entities;
 
-namespace ExchanceRateApp_API.Interfaces
+namespace ExchangeRateApp_API.Interfaces
 {
     public interface ICurrencySymbolsFileReadService
     {
-        CurrencySymbolsEntity ReadSymbols();
+        FileCurrencySymbol ReadSymbols();
     }
 }

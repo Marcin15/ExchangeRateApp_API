@@ -1,4 +1,5 @@
-﻿using ExchanceRateApp_API.Interfaces;
+﻿using ExchangeRateApp_API.Interfaces;
+using ExchangeRateApp_API.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExchanceRateApp_API.Controllers
@@ -8,22 +9,22 @@ namespace ExchanceRateApp_API.Controllers
     public class CurrencyRateController : ControllerBase
     {
         private readonly ILogger<CurrencyRateController> _logger;
-        private readonly IHistoricalCurrencyService _currencyService;
+        private readonly IHistoricalCurrencyService _historicalCurrencyService;
         private readonly ILatestCurrencyService _latestCurrencyService;
         public CurrencyRateController(ILogger<CurrencyRateController> logger,
                                       IHistoricalCurrencyService currencyService, 
                                       ILatestCurrencyService latestCurrencyService)
         {
             _logger = logger;
-            _currencyService = currencyService;
+            _historicalCurrencyService = currencyService;
             _latestCurrencyService = latestCurrencyService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("historicalCurrencyData")]
-        public IActionResult GetHistoricalCurrencyData(string baseCurrency, string exchanceCurrency, DateTime startDate, DateTime endDate)
+        public IActionResult GetHistoricalCurrencyData(HistoricalCurrencyQuery historicalCurrencyRequestDto)
         {
-            var data = _currencyService.GetHistoricalCurrencyData(baseCurrency, exchanceCurrency, startDate, endDate);
+            var data = _historicalCurrencyService.GetHistoricalCurrency(historicalCurrencyRequestDto);
 
             if(data is null)
             {
@@ -33,11 +34,11 @@ namespace ExchanceRateApp_API.Controllers
             return Ok(data);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("latestCurrencyData")]
-        public IActionResult GetLatestCurrencyData(string baseCurrency, string exchanceCurrency)
+        public IActionResult GetLatestCurrencyData(LatestCurrencyQuery latestCurrencyRequestDto)
         {
-            var data = _latestCurrencyService.GetLatestCurrency(baseCurrency, exchanceCurrency);
+            var data = _latestCurrencyService.GetLatestCurrency(latestCurrencyRequestDto);
 
             if (data is null)
             {

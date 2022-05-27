@@ -1,5 +1,4 @@
-﻿
-namespace ExchanceRateApp_API.Interfaces
+﻿namespace ExchangeRateApp_API.Interfaces
 {
     public interface IHttpClientManager
     {

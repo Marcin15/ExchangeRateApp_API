@@ -1,9 +1,10 @@
-﻿
-namespace ExchanceRateApp_API.Interfaces
+﻿using ExchangeRateApp_API.Queries;
+
+namespace ExchangeRateApp_API.Interfaces
 {
     public interface IOuterWebApiDataReceiveService
     {
-        Task<string> GetHistoricalCurrencyRates(string baseCurrency, string exchanceCurrency, DateTime startDate, DateTime endDate);
-        Task<string> GetLatestCurrencyRates(string baseCurrency, string exchanceCurrency);
+        Task<string> GetHistoricalCurrencyRates(HistoricalCurrencyQuery historicalCurrencyRequestDto);
+        Task<string> GetLatestCurrencyRates(LatestCurrencyQuery latestCurrencyRequestDto);
     }
 }

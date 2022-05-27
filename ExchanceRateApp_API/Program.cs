@@ -1,5 +1,5 @@
-using ExchanceRateApp_API.Interfaces;
-using ExchanceRateApp_API.Services;
+using ExchangeRateApp_API.Interfaces;
+using ExchangeRateApp_API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +19,8 @@ builder.Services.AddSingleton<ICurrencySymbolsFileReadService, CurrencySymbolsFi
 builder.Services.AddTransient<IHistoricalCurrencyService, HistoricalCurrencyService>();
 builder.Services.AddTransient<ILatestCurrencyService, LatestCurrencyService>();
 builder.Services.AddSingleton<IHttpClientManager, HttpClientManager>();
+builder.Services.AddSingleton<IHistoricalCurrencyDtoToModelMapService, HistoricalCurrencyDtoToModelMapService>();
+builder.Services.AddSingleton<IStringArrayToStringMapService, StringArrayToStringMapService>();
 
 var app = builder.Build();
 

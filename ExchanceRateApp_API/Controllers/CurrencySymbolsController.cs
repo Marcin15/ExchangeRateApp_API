@@ -1,4 +1,4 @@
-﻿using ExchanceRateApp_API.Interfaces;
+﻿using ExchangeRateApp_API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExchanceRateApp_API.Controllers

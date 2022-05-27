@@ -1,9 +1,10 @@
-﻿using ExchanceRateApp_API.Models;
+﻿using ExchangeRateApp_API.Dtos;
+using ExchangeRateApp_API.Queries;
 
-namespace ExchanceRateApp_API.Interfaces
+namespace ExchangeRateApp_API.Interfaces
 {
     public interface ILatestCurrencyService
     {
-        LatestCurrencyModel GetLatestCurrency(string baseCurrency, string exchangeCurrency);
+        LatestCurrencyDtos GetLatestCurrency(LatestCurrencyQuery latestCurrencyRequestDto);
     }
 }

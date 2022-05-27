@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ExchanceRateApp_API.Helpers
+namespace ExchangeRateApp_API.Helpers
 {
     public class Serializer
     {

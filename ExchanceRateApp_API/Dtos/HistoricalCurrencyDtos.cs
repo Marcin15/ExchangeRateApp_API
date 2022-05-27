@@ -1,6 +1,6 @@
-﻿namespace ExchanceRateApp_API.Models
+﻿namespace ExchangeRateApp_API.Dtos
 {
-    public class HistoricalCurrencyModel
+    public class HistoricalCurrencyDtos
     {
         public string Symbol { get; set; }
         public Dictionary<DateTime, float> Rates { get; set; }

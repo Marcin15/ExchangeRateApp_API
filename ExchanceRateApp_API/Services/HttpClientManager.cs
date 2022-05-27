@@ -1,6 +1,6 @@
-﻿using ExchanceRateApp_API.Interfaces;
+﻿using ExchangeRateApp_API.Interfaces;
 
-namespace ExchanceRateApp_API.Services
+namespace ExchangeRateApp_API.Services
 {
     public class HttpClientManager : IHttpClientManager
     {

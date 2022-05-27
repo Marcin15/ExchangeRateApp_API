@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace ExchanceRateApp_API.Entities
+namespace ExchangeRateApp_API.Entities
 {
-    public class CurrencySymbolsEntity
+    public class FileCurrencySymbol
     {
         [JsonProperty("symbols")]
         public Dictionary<string, string> Symbols { get; set; }
