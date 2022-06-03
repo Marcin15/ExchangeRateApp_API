@@ -1,5 +1,6 @@
 ﻿using ExchangeRateApp_API.Interfaces;
 using ExchangeRateApp_API.Queries;
+using System.Globalization;
 
 namespace ExchangeRateApp_API.Services
 {
@@ -20,8 +21,8 @@ namespace ExchangeRateApp_API.Services
         public async Task<string> GetHistoricalCurrencyRates(HistoricalCurrencyQuery historicalCurrencyRequestDto)
         {
             var client = _httpClientManager.GetHttpCliet(baseUrl);
-
-            var startDate = historicalCurrencyRequestDto.StartDate.ToString("yyyy-MMM-dd");
+            
+            var startDate = historicalCurrencyRequestDto.StartDate.ToString("yyyy-MM-dd");
             var endDate = historicalCurrencyRequestDto.EndDate.ToString("yyyy-MM-dd");
             var baseCurrency = historicalCurrencyRequestDto.BaseCurrency.ToUpper();
             var exchangeCurrency = _stringArrayToStringMapService.MapExchangeCurrencyArraytoString(historicalCurrencyRequestDto.ExchangeCurrency);

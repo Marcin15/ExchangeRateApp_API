@@ -8,14 +8,19 @@ namespace ExchanceRateApp_API.Controllers
     public class CurrencySymbolsController : ControllerBase
     {
         private readonly ICurrencySymbolsFileReadService _currencySymbolsFileReadService;
-        public CurrencySymbolsController(ICurrencySymbolsFileReadService currencySymbolsFileReadService)
+        private readonly ILogger<CurrencyRateController> _logger;
+
+        public CurrencySymbolsController(ICurrencySymbolsFileReadService currencySymbolsFileReadService,
+                                         ILogger<CurrencyRateController> logger)
         {
             _currencySymbolsFileReadService = currencySymbolsFileReadService;
+            _logger = logger;
         }
 
         [HttpGet]
         public IActionResult GetSymbols()
         {
+            _logger.LogError("witam");
             var symbols = _currencySymbolsFileReadService.ReadSymbols();
 
             if(symbols is null)

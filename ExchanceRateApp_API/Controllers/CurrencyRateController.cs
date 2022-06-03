@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExchanceRateApp_API.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CurrencyRateController : ControllerBase
@@ -19,10 +20,28 @@ namespace ExchanceRateApp_API.Controllers
             _historicalCurrencyService = currencyService;
             _latestCurrencyService = latestCurrencyService;
         }
-
-        [HttpPost]
+        /// <summary>
+        /// Retrieves a list of currency rates specified by date interval
+        /// </summary>
+        /// <param name="historicalCurrencyRequestDto"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// **BaseCurrency**: PLN
+        /// <br/>
+        /// **ExchangeCurrency**: EUR, USD
+        /// <br/>
+        /// **StartDate**: 2022-05-14
+        /// <br/>
+        /// **EndDate**: 2022-06-02
+        ///
+        /// </remarks>
+        /// <response code="200">Request is correct</response>
+        /// <response code="400">Product has missing/invalid values</response>
+        /// <response code="500">Oops! Can't create your product right now</response>
+        [HttpGet]
         [Route("historicalCurrencyData")]
-        public IActionResult GetHistoricalCurrencyData(HistoricalCurrencyQuery historicalCurrencyRequestDto)
+        public IActionResult GetHistoricalCurrencyData([FromQuery] HistoricalCurrencyQuery historicalCurrencyRequestDto)
         {
             var data = _historicalCurrencyService.GetHistoricalCurrency(historicalCurrencyRequestDto);
 
@@ -34,9 +53,23 @@ namespace ExchanceRateApp_API.Controllers
             return Ok(data);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Retrieves a list of currency rates specified by current date
+        /// </summary>
+        /// <param name="latestCurrencyRequestDto">asd</param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// **BaseCurrency**: PLN
+        /// <br/>
+        /// **ExchangeCurrency**: EUR, USD
+        /// </remarks>
+        /// <response code="200">Request is correct</response>
+        /// <response code="400">Product has missing/invalid values</response>
+        /// <response code="500">Oops! Can't create your product right now</response>
+        [HttpGet]
         [Route("latestCurrencyData")]
-        public IActionResult GetLatestCurrencyData(LatestCurrencyQuery latestCurrencyRequestDto)
+        public IActionResult GetLatestCurrencyData([FromRoute] LatestCurrencyQuery latestCurrencyRequestDto)
         {
             var data = _latestCurrencyService.GetLatestCurrency(latestCurrencyRequestDto);
 
