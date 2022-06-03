@@ -1,3 +1,4 @@
+using ExchangeRateApp_API.ExceptionHandlers;
 using ExchangeRateApp_API.Interfaces;
 using ExchangeRateApp_API.Middleware;
 using ExchangeRateApp_API.Services;
@@ -44,6 +45,7 @@ builder.Services.AddSingleton<IHttpClientManager, HttpClientManager>();
 builder.Services.AddSingleton<IHistoricalCurrencyDtoToModelMapService, HistoricalCurrencyDtoToModelMapService>();
 builder.Services.AddSingleton<IStringArrayToStringMapService, StringArrayToStringMapService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<IArgumentNullExceptionHandler, ArgumentNullExceptionHandler>();
 
 var app = builder.Build();
 

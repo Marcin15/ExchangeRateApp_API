@@ -1,4 +1,5 @@
-﻿using ExchangeRateApp_API.Interfaces;
+﻿using ExchangeRateApp_API.Entities;
+using ExchangeRateApp_API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExchanceRateApp_API.Controllers
@@ -8,25 +9,17 @@ namespace ExchanceRateApp_API.Controllers
     public class CurrencySymbolsController : ControllerBase
     {
         private readonly ICurrencySymbolsFileReadService _currencySymbolsFileReadService;
-        private readonly ILogger<CurrencyRateController> _logger;
 
-        public CurrencySymbolsController(ICurrencySymbolsFileReadService currencySymbolsFileReadService,
-                                         ILogger<CurrencyRateController> logger)
+        public CurrencySymbolsController(ICurrencySymbolsFileReadService currencySymbolsFileReadService)
         {
             _currencySymbolsFileReadService = currencySymbolsFileReadService;
-            _logger = logger;
         }
 
         [HttpGet]
         public IActionResult GetSymbols()
         {
-            _logger.LogError("witam");
             var symbols = _currencySymbolsFileReadService.ReadSymbols();
 
-            if(symbols is null)
-            {
-                return NotFound();
-            }
             return Ok(symbols);
         }
     }
