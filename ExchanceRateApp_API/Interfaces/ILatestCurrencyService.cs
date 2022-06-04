@@ -5,6 +5,6 @@ namespace ExchangeRateApp_API.Interfaces
 {
     public interface ILatestCurrencyService
     {
-        LatestCurrencyDtos GetLatestCurrency(LatestCurrencyQuery latestCurrencyRequestDto);
+        Task<LatestCurrencyDtos> GetLatestCurrencyAsync(LatestCurrencyQuery latestCurrencyRequestDto);
     }
 }

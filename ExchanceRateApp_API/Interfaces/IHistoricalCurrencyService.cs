@@ -5,6 +5,6 @@ namespace ExchangeRateApp_API.Interfaces
 {
     public interface IHistoricalCurrencyService
     {
-        List<HistoricalCurrencyDtos> GetHistoricalCurrency(HistoricalCurrencyQuery historicalCurrencyRequestDto);
+        Task<List<HistoricalCurrencyDtos>> GetHistoricalCurrencyAsync(HistoricalCurrencyQuery historicalCurrencyRequestDto);
     }
 }

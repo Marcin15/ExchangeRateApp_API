@@ -1,26 +1,33 @@
 ﻿using ExchangeRateApp_API.Interfaces;
 using ExchangeRateApp_API.Queries;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ExchangeRateApp_API.Services
 {
-    public class HistoricalCurrencyRatesDataReceiver : IDataReceiver
+    public class HistoricalCurrencyRatesReceiveService : IHistoricalCurrencyRatesReceiveService
     {
         private readonly IHttpClientManager _httpClientManager;
         private readonly IStringArrayToStringMapService _stringArrayToStringMapService;
-        public HistoricalCurrencyRatesDataReceiver(IHttpClientManager httpClientManager, 
-                                                   IStringArrayToStringMapService stringArrayToStringMapService)
+        private readonly IConfiguration _configuration;
+
+        public HistoricalCurrencyRatesReceiveService(IHttpClientManager httpClientManager,
+                                                     IStringArrayToStringMapService stringArrayToStringMapService,
+                                                     IConfiguration configuration)
         {
             _httpClientManager = httpClientManager;
             _stringArrayToStringMapService = stringArrayToStringMapService;
+            _configuration = configuration;
         }
 
-        public async Task<string> ReceiveDataAsync(string baseUrl, object query)
+        public async Task<string> ReceiveJsonAsync(HistoricalCurrencyQuery historicalCurrencyQuery)
         {
-            var client = _httpClientManager.GetHttpCliet(baseUrl);
+            var client = _httpClientManager.GetHttpCliet(_configuration["BaseUrl"]);
 
-            var historicalCurrencyQuery = query as HistoricalCurrencyQuery;
-
-            var startDate = historicalCurrencyQuery.StartDate.ToString("yyyy-MMM-dd");
+            var startDate = historicalCurrencyQuery.StartDate.ToString("yyyy-MM-dd");
             var endDate = historicalCurrencyQuery.EndDate.ToString("yyyy-MM-dd");
             var baseCurrency = historicalCurrencyQuery.BaseCurrency.ToUpper();
             var exchangeCurrency = _stringArrayToStringMapService.MapExchangeCurrencyArraytoString(historicalCurrencyQuery.ExchangeCurrency);

@@ -41,9 +41,9 @@ namespace ExchanceRateApp_API.Controllers
         /// <response code="500">Oops! Can't create your product right now</response>
         [HttpGet]
         [Route("historicalCurrencyData")]
-        public IActionResult GetHistoricalCurrencyData([FromQuery] HistoricalCurrencyQuery historicalCurrencyRequestDto)
+        public async Task<IActionResult> GetHistoricalCurrencyData([FromQuery] HistoricalCurrencyQuery historicalCurrencyRequestDto)
         {
-            var data = _historicalCurrencyService.GetHistoricalCurrency(historicalCurrencyRequestDto);
+            var data = await _historicalCurrencyService.GetHistoricalCurrencyAsync(historicalCurrencyRequestDto);
 
             if(data is null)
             {
@@ -69,9 +69,9 @@ namespace ExchanceRateApp_API.Controllers
         /// <response code="500">Oops! Can't create your product right now</response>
         [HttpGet]
         [Route("latestCurrencyData")]
-        public IActionResult GetLatestCurrencyData([FromRoute] LatestCurrencyQuery latestCurrencyRequestDto)
+        public async Task<IActionResult> GetLatestCurrencyData([FromRoute] LatestCurrencyQuery latestCurrencyRequestDto)
         {
-            var data = _latestCurrencyService.GetLatestCurrency(latestCurrencyRequestDto);
+            var data = await _latestCurrencyService.GetLatestCurrencyAsync(latestCurrencyRequestDto);
 
             if (data is null)
             {

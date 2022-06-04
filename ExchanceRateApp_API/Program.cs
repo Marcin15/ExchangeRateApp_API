@@ -37,7 +37,6 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", policybuilder =>
     policybuilder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
 
-builder.Services.AddTransient<IOuterWebApiDataReceiveService, OuterWebApiDataReceiveService>();
 builder.Services.AddSingleton<ICurrencySymbolsFileReadService, CurrencySymbolsFileReadService>();
 builder.Services.AddTransient<IHistoricalCurrencyService, HistoricalCurrencyService>();
 builder.Services.AddTransient<ILatestCurrencyService, LatestCurrencyService>();
@@ -46,6 +45,8 @@ builder.Services.AddSingleton<IHistoricalCurrencyDtoToModelMapService, Historica
 builder.Services.AddSingleton<IStringArrayToStringMapService, StringArrayToStringMapService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IArgumentNullExceptionHandler, ArgumentNullExceptionHandler>();
+builder.Services.AddScoped<IHistoricalCurrencyRatesReceiveService, HistoricalCurrencyRatesReceiveService>();
+builder.Services.AddScoped<ILatestCurrencyRatesReceiveService, LatestCurrencyRatesReceiveService>();
 
 var app = builder.Build();
 

@@ -7,14 +7,16 @@ namespace ExchangeRateApp_API.Services
 {
     public class LatestCurrencyService : ILatestCurrencyService
     {
-        private readonly IOuterWebApiDataReceiveService _outerWebApiDataReceiveService;
+        private readonly ILatestCurrencyRatesReceiveService _latestCurrencyRatesReceiveService;
 
-        public LatestCurrencyService(IOuterWebApiDataReceiveService outerWebApiDataReceiveService)
+        public LatestCurrencyService(ILatestCurrencyRatesReceiveService latestCurrencyRatesReceiveService)
         {
-            _outerWebApiDataReceiveService = outerWebApiDataReceiveService;
+            _latestCurrencyRatesReceiveService = latestCurrencyRatesReceiveService;
         }
 
-        public LatestCurrencyDtos GetLatestCurrency(LatestCurrencyQuery latestCurrencyRequestDto) =>
-               Deserializer.Deserialize<LatestCurrencyDtos>(_outerWebApiDataReceiveService.GetLatestCurrencyRates(latestCurrencyRequestDto).Result);
+        public async Task<LatestCurrencyDtos> GetLatestCurrencyAsync(LatestCurrencyQuery latestCurrencyRequestDto)
+        {
+            return Deserializer.Deserialize<LatestCurrencyDtos>(await _latestCurrencyRatesReceiveService.ReceiveJsonAsync(latestCurrencyRequestDto));
+        }
     }
 }
