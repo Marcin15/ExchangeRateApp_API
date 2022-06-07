@@ -8,19 +8,22 @@ namespace ExchangeRateApp_API.Services
 {
     public class HistoricalCurrencyService : IHistoricalCurrencyService
     {
-        private readonly IHistoricalCurrencyRatesReceiveService _historicalCurrencyRatesReceiveService;
+        private readonly IOuterWebApiDataReciveCreator<HistoricalCurrencyQuery> _serviceCreator;
         private readonly IHistoricalCurrencyDtoToModelMapService _modelMapService;
 
-        public HistoricalCurrencyService(IHistoricalCurrencyRatesReceiveService historicalCurrencyRatesReceiveService, 
+        public HistoricalCurrencyService(IOuterWebApiDataReciveCreator<HistoricalCurrencyQuery> serviceCreator, 
                                          IHistoricalCurrencyDtoToModelMapService modelMapService)
         {
-            _historicalCurrencyRatesReceiveService = historicalCurrencyRatesReceiveService;
+            _serviceCreator = serviceCreator;
             _modelMapService = modelMapService;
         }
 
         public async Task<List<HistoricalCurrencyDtos>> GetHistoricalCurrencyAsync(HistoricalCurrencyQuery historicalCurrencyRequestDto)
         {
-            var dataFromOuterAPI = Deserializer.Deserialize<HistoricalCurrency>(await _historicalCurrencyRatesReceiveService.ReceiveJsonAsync(historicalCurrencyRequestDto));
+            var dataFromOuterAPI = Deserializer
+                .Deserialize<HistoricalCurrency>(await _serviceCreator
+                .GetService(historicalCurrencyRequestDto)
+                .ReceiveJsonAsync(historicalCurrencyRequestDto));
 
             return _modelMapService.MapResponseToHistoricalCurrencyModel(dataFromOuterAPI);
         }

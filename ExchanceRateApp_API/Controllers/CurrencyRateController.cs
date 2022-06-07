@@ -69,7 +69,7 @@ namespace ExchanceRateApp_API.Controllers
         /// <response code="500">Oops! Can't create your product right now</response>
         [HttpGet]
         [Route("latestCurrencyData")]
-        public async Task<IActionResult> GetLatestCurrencyData([FromRoute] LatestCurrencyQuery latestCurrencyRequestDto)
+        public async Task<IActionResult> GetLatestCurrencyData([FromQuery] LatestCurrencyQuery latestCurrencyRequestDto)
         {
             var data = await _latestCurrencyService.GetLatestCurrencyAsync(latestCurrencyRequestDto);
 

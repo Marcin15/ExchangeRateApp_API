@@ -1,18 +1,15 @@
 ﻿using ExchangeRateApp_API.Interfaces;
 using ExchangeRateApp_API.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExchangeRateApp_API.Services
 {
-    public class HistoricalCurrencyRatesReceiveService : IHistoricalCurrencyRatesReceiveService
+    public class HistoricalCurrencyRatesReceiveService : ICurrencyRatesService<HistoricalCurrencyQuery>
     {
         private readonly IHttpClientManager _httpClientManager;
         private readonly IStringArrayToStringMapService _stringArrayToStringMapService;
         private readonly IConfiguration _configuration;
+
+        public HistoricalCurrencyRatesReceiveService() { }
 
         public HistoricalCurrencyRatesReceiveService(IHttpClientManager httpClientManager,
                                                      IStringArrayToStringMapService stringArrayToStringMapService,

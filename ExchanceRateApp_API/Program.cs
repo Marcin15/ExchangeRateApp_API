@@ -1,6 +1,7 @@
 using ExchangeRateApp_API.ExceptionHandlers;
 using ExchangeRateApp_API.Interfaces;
 using ExchangeRateApp_API.Middleware;
+using ExchangeRateApp_API.Queries;
 using ExchangeRateApp_API.Services;
 using NLog;
 using NLog.Web;
@@ -45,8 +46,9 @@ builder.Services.AddSingleton<IHistoricalCurrencyDtoToModelMapService, Historica
 builder.Services.AddSingleton<IStringArrayToStringMapService, StringArrayToStringMapService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IArgumentNullExceptionHandler, ArgumentNullExceptionHandler>();
-builder.Services.AddScoped<IHistoricalCurrencyRatesReceiveService, HistoricalCurrencyRatesReceiveService>();
-builder.Services.AddScoped<ILatestCurrencyRatesReceiveService, LatestCurrencyRatesReceiveService>();
+builder.Services.AddScoped(typeof(IOuterWebApiDataReciveCreator<>), typeof(OuterWebApiDataReciveCreator<>));
+builder.Services.AddScoped<HistoricalCurrencyRatesReceiveService>();
+builder.Services.AddScoped<LatestCurrencyRatesReceiveService>();
 
 var app = builder.Build();
 

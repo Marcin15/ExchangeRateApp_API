@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExchangeRateApp_API.Services
 {
-    public class LatestCurrencyRatesReceiveService : ILatestCurrencyRatesReceiveService
+    public class LatestCurrencyRatesReceiveService : ICurrencyRatesService<LatestCurrencyQuery>
     {
         private readonly IHttpClientManager _httpClientManager;
         private readonly IStringArrayToStringMapService _stringArrayToStringMapService;
